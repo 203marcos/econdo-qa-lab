@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | eCondo QA Lab</title>
+    <link rel="stylesheet" href="/assets/css/app.css" />
+    <script defer src="/assets/js/auth.js"></script>
+  </head>
+  <body data-page="login">
+    <main class="app-shell auth-layout">
+      <section class="auth-hero">
+        <span class="eyebrow">eCondo QA Lab</span>
+        <h1>Login pronto para testes reais de autenticacao.</h1>
+        <p>
+          Interface centralizada para validar cenarios de sucesso, erro, expiracao de sessao e navegacao para area protegida.
+        </p>
+        <div class="chips">
+          <span class="chip">JWT em cookie HTTP-only</span>
+          <span class="chip">Layout responsivo</span>
+          <span class="chip">Fluxo claro para QA</span>
+        </div>
+      </section>
+
+      <section class="auth-card">
+        <h2>Entrar</h2>
+        <p class="subtitle">Use seu email e senha para acessar o dashboard autenticado.</p>
+
+        <form id="login-form" class="auth-form">
+          <label>
+            Email
+            <input name="email" type="email" placeholder="admin@econdo.com" required />
+          </label>
+
+          <label>
+            Senha
+            <input name="password" type="password" placeholder="admin123" required />
+          </label>
+
+          <button type="submit" class="btn-primary">Fazer login</button>
+        </form>
+
+        <p class="switch-link">Nao tem conta? <a href="/cadastro">Criar cadastro</a></p>
+        <pre id="auth-feedback" class="feedback">Aguardando autenticacao...</pre>
+      </section>
+    </main>
+  </body>
+</html>

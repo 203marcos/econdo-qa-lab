@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | eCondo QA Lab</title>
+    <link rel="stylesheet" href="/assets/css/app.css" />
+    <script defer src="/assets/js/dashboard.js"></script>
+  </head>
+  <body data-page="dashboard">
+    <main class="app-shell">
+      <header class="dashboard-header">
+        <div>
+          <span class="eyebrow">Area autenticada</span>
+          <h1 id="welcome-title">Carregando seus dados...</h1>
+          <p id="welcome-subtitle">Validando sessao atual.</p>
+        </div>
+        <button id="logout-button" type="button" class="btn-secondary">Sair</button>
+      </header>
+
+      <section class="dashboard-grid">
+        <article class="dashboard-panel">
+          <h2>Resumo da sessao</h2>
+          <p>
+            Esta pagina confirma que seu acesso foi autenticado no backend e exibe os dados retornados pela rota protegida.
+          </p>
+          <div class="summary-grid">
+            <div class="summary-card">
+              <span>Status</span>
+              <strong id="auth-status">Verificando</strong>
+            </div>
+            <div class="summary-card">
+              <span>Usuario</span>
+              <strong id="auth-user">-</strong>
+            </div>
+            <div class="summary-card">
+              <span>Email</span>
+              <strong id="auth-email">-</strong>
+            </div>
+          </div>
+        </article>
+
+        <article class="dashboard-panel">
+          <h2>Resposta da API /api/me</h2>
+          <pre id="profile-response" class="feedback">Aguardando carregamento...</pre>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

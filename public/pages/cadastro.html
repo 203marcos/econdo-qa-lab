@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro | eCondo QA Lab</title>
+    <link rel="stylesheet" href="/assets/css/app.css" />
+    <script defer src="/assets/js/auth.js"></script>
+  </head>
+  <body data-page="register">
+    <main class="app-shell auth-layout">
+      <section class="auth-hero">
+        <span class="eyebrow">eCondo QA Lab</span>
+        <h1>Cadastro enxuto e pronto para teste funcional.</h1>
+        <p>
+          Formulario estruturado para validar campos obrigatorios, duplicidade de email e criacao de sessao autenticada.
+        </p>
+        <div class="chips">
+          <span class="chip">Cadastro + Login automatico</span>
+          <span class="chip">JWT seguro no backend</span>
+          <span class="chip">Pronto para mobile</span>
+        </div>
+      </section>
+
+      <section class="auth-card">
+        <h2>Criar conta</h2>
+        <p class="subtitle">Depois do cadastro, voce entra direto no dashboard.</p>
+
+        <form id="register-form" class="auth-form">
+          <label>
+            Nome
+            <input name="name" type="text" placeholder="Seu nome completo" required />
+          </label>
+
+          <label>
+            Email
+            <input name="email" type="email" placeholder="voce@econdo.com" required />
+          </label>
+
+          <label>
+            Senha
+            <input name="password" type="password" placeholder="Crie uma senha" required />
+          </label>
+
+          <button type="submit" class="btn-primary">Criar conta</button>
+        </form>
+
+        <p class="switch-link">Ja tem conta? <a href="/login">Voltar para login</a></p>
+        <pre id="auth-feedback" class="feedback">Preencha os dados para criar sua conta...</pre>
+      </section>
+    </main>
+  </body>
+</html>

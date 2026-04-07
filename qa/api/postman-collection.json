@@ -1,0 +1,102 @@
+{
+	"info": {
+		"name": "eCondo QA Lab",
+		"description": "Collection para validar autenticação, cadastro e dashboard da aplicação QA Lab.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/health",
+					"host": ["{{baseUrl}}"],
+					"path": ["health"]
+				}
+			}
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"QA Test\",\n  \"email\": \"qa.test@econdo.com\",\n  \"password\": \"qa123456\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/register",
+					"host": ["{{baseUrl}}"],
+					"path": ["api", "register"]
+				}
+			}
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"admin@econdo.com\",\n  \"password\": \"admin123\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/login",
+					"host": ["{{baseUrl}}"],
+					"path": ["api", "login"]
+				}
+			}
+		},
+		{
+			"name": "Me",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/api/me",
+					"host": ["{{baseUrl}}"],
+					"path": ["api", "me"]
+				}
+			}
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/logout",
+					"host": ["{{baseUrl}}"],
+					"path": ["api", "logout"]
+				}
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000"
+		},
+		{
+			"key": "token",
+			"value": ""
+		}
+	]
+}

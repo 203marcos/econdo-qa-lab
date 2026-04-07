@@ -1,0 +1,41 @@
+A eCondos está com oportunidade aberta para QA Júnior (Analista de Qualidade de Software) 100% remoto.
+
+Buscamos profissionais que queiram atuar na garantia de qualidade de produtos digitais, com testes manuais e automatizados ao longo do ciclo de desenvolvimento.
+
+Você fará parte de um ambiente colaborativo, com espaço para aprendizado, crescimento e evolução na área de QA.
+
+Requisitos essenciais
+
+Noções de metodologias ágeis como Scrum ou Kanban
+
+Conhecimento em testes de software, incluindo funcionais e não funcionais
+
+Entendimento de testes de regressão
+
+Capacidade de criar e executar casos de teste a partir de especificações
+
+Atenção aos detalhes e boa comunicação
+
+Mentalidade crítica e analítica
+
+Diferenciais
+
+Experiência com ferramentas como Jira, TestRail ou Zephyr
+
+Vivência com testes Web, Mobile e Desktop
+
+Noções de testes de API com Postman
+
+Conhecimento em automação de testes, como Cypress
+
+Experiência com testes de integração entre software e hardware
+
+Contratação no modelo PJ, com 100% home office e auxílio home office.
+
+Envie seu currículo para
+recrutamento@econdos.com.br
+
+Assunto do e-mail
+Vaga QA Júnior – Seu nome
+
+hashtag#qa hashtag#qualityassurance hashtag#testesdesoftware hashtag#vagaremota hashtag#tecnologia
