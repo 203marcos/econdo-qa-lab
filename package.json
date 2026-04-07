@@ -4,7 +4,9 @@
   "description": "Base Node.js para laboratorio de QA com login e autenticacao",
   "main": "src/server.js",
   "scripts": {
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run"
   },
   "engines": {
     "node": ">=18"
@@ -13,5 +15,8 @@
     "bcryptjs": "^3.0.2",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "cypress": "^14.3.3"
   }
 }
