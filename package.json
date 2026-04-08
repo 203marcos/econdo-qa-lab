@@ -4,7 +4,16 @@
   "description": "Base Node.js para laboratorio de QA com login e autenticacao",
   "main": "src/server.js",
   "scripts": {
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "test:unit": "vitest run --dir qa/automation/unit",
+    "test:api": "vitest run --dir qa/automation/api",
+    "test": "npm run test:unit && npm run test:api",
+    "test:postman": "newman run qa/api/postman-collection.json --reporters cli,junit --reporter-junit-export qa/reports/newman-junit.xml",
+    "test:postman:html": "newman run qa/api/postman-collection.json --reporters cli,htmlextra --reporter-htmlextra-export qa/reports/newman-report.html",
+    "test:perf": "k6 run qa/performance/k6-smoke.js",
+    "test:security": "docker run --rm --add-host host.docker.internal:host-gateway -v \"$PWD\":/zap/wrk ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t ${ZAP_TARGET:-http://host.docker.internal:3000} -J /zap/wrk/qa/reports/zap-report.json -r /zap/wrk/qa/reports/zap-report.html -m 2 || true"
   },
   "engines": {
     "node": ">=18"
@@ -13,5 +22,12 @@
     "bcryptjs": "^3.0.2",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "cypress": "^14.3.3",
+    "newman": "^6.2.1",
+    "newman-reporter-htmlextra": "^1.23.1",
+    "supertest": "^7.1.1",
+    "vitest": "^2.1.9"
   }
 }

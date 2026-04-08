@@ -1,34 +1,24 @@
-# QA Lab - Simulacao de Testes de Software
+# eCondo QA Lab
 
-## Contexto
+Projeto de laboratório de QA para uma aplicação web simples de login, cadastro e dashboard protegido.
 
-Este projeto foi desenvolvido como um laboratorio pratico para simular a atuacao de um QA Junior, aplicando na pratica os principais conceitos e ferramentas exigidos em processos seletivos da area de Quality Assurance.
+O foco do repositório é mostrar um fluxo completo de validação: testes manuais, automação E2E, testes de API, cobertura unitária, performance e verificação básica de segurança.
 
-O sistema utilizado e uma aplicacao simples de login e autenticacao, implementada em Node.js para manter a base mais leve e rapida de executar.
+## Visão geral
 
-A estrutura agora inclui uma interface com tres paginas, login, cadastro e dashboard protegido, alem de um back end com JWT para testes manuais e de API.
+A aplicação foi construída com Node.js e Express no backend e HTML, CSS e JavaScript puro no frontend. A autenticação usa JWT armazenado em cookie `httpOnly`, o que evita expor o token ao JavaScript do navegador.
 
-## Objetivo
+## Stack
 
-Aplicar na pratica os seguintes pontos:
+* Backend: Node.js, Express, bcryptjs e jsonwebtoken
+* Frontend: HTML, CSS e JavaScript
+* E2E: Cypress
+* Unit e API: Vitest
+* Contrato/API via collection: Postman + Newman
+* Performance: k6
+* Segurança baseline: OWASP ZAP
 
-* Testes manuais, funcionais e nao funcionais
-* Testes de regressao
-* Criacao e execucao de casos de teste
-* Registro e documentacao de bugs
-* Testes de API
-* Introducao a automacao de testes
-* Simulacao de uso de ferramentas do mercado como Jira, Postman e Cypress
-
-## Estrutura da aplicacao
-
-* Front end em HTML, CSS e JavaScript puro
-* Back end em Node.js com Express
-* Autenticacao com JWT para login, cadastro e area protegida
-* Sessao via cookie HTTP-only, sem armazenar token em localStorage
-* Endpoints de apoio para health, usuarios, login, cadastro e perfil autenticado
-
-### Organizacao de pastas
+## Estrutura principal
 
 ```text
 public/
@@ -39,145 +29,52 @@ public/
       auth.js
       dashboard.js
   pages/
-    login.html
     cadastro.html
     dashboard.html
+    login.html
 src/
   server.js
-```
-
-### Estrategia de token e sessao
-
-* O JWT e criado no backend apos login/cadastro.
-* O token e salvo no cookie `session_token` com `httpOnly`, `sameSite=lax` e expiracao de 2 horas.
-* O navegador nao expõe esse token ao JavaScript da pagina.
-* Essa abordagem e mais segura que localStorage para reduzir risco em caso de XSS.
-
-## Estrutura de QA
-
-```text
+  utils/
+    authValidation.js
 qa/
-  manual/
-    casos-de-teste.md
-    bug-reports.md
   api/
     postman-collection.json
   automation/
+    api/
+      auth.api.test.js
     cypress/
+      cadastro.cy.js
+      dashboard.cy.js
       login.cy.js
+    unit/
+      authValidation.test.js
+  manual/
+    bug-reports.md
+    casos-de-teste.md
+    checklist-nao-funcional.md
+    teste-aceitacao.md
+    teste-exploratorio.md
+  performance/
+    k6-smoke.js
+  reports/
+  security/
+    zap-baseline.md
 ```
 
-## Tecnologias e Ferramentas utilizadas
+## Cobertura de testes
 
-### Gestao e organizacao
+* Cypress cobre os fluxos de usuário: login, cadastro, dashboard e logout.
+* Vitest cobre validações unitárias e testes de API com Supertest.
+* Newman executa a collection do Postman via linha de comando e gera relatório.
+* k6 faz smoke test de performance.
+* OWASP ZAP Baseline faz uma verificação passiva de segurança.
 
-* Jira simulado
-  Utilizado como referencia para estrutura de criacao e acompanhamento de bugs e tarefas, seguindo fluxo agil.
+## Por que essas ferramentas
 
-* TestRail e Zephyr conceituais
-  Aplicado o conceito de organizacao e execucao de casos de teste.
-
-### Testes de API
-
-* Postman
-  Utilizado para validar endpoints, status codes e estrutura das respostas.
-
-### Automacao de testes
-
-* Cypress
-  Utilizado para automacao de testes end to end simulando o comportamento do usuario.
-
-### Ambiente de testes
-
-* Aplicacao Web de Login
-* Navegador e DevTools para inspecao e analise de comportamento
-
-## Tipos de testes aplicados
-
-### Testes funcionais
-
-Validacao do comportamento esperado do sistema com diferentes entradas de dados.
-
-### Testes nao funcionais
-
-Analise basica de comportamento da aplicacao, como usabilidade e respostas do sistema.
-
-### Testes de regressao
-
-Reexecucao de cenarios apos alteracoes simuladas para garantir que funcionalidades nao foram impactadas.
-
-## Casos de teste
-
-Foram criados e executados cenarios baseados em requisitos da funcionalidade de login, como:
-
-* Login com credenciais validas
-* Login com senha incorreta
-* Campos obrigatorios nao preenchidos
-* Validacao de formatos invalidos
-
-Todos os cenarios estao documentados em:
-
-```text
-qa/manual/casos-de-teste.md
-```
-
-## Registro de bugs
-
-Os bugs foram documentados seguindo boas praticas utilizadas em ferramentas como Jira, contendo:
-
-* Titulo claro
-* Passos para reproducao
-* Resultado esperado
-* Resultado atual
-
-Arquivo:
-
-```text
-qa/manual/bug-reports.md
-```
-
-## Testes de API com Postman
-
-Foram realizados testes em endpoints simulados como:
-
-* GET /health
-* GET /api/users
-* POST /api/login
-* POST /api/register
-* GET /api/me
-
-Validacoes realizadas:
-
-* Status code como 200 e 400
-* Estrutura da resposta em JSON
-* Consistencia dos dados
-
-Collection disponivel em:
-
-```text
-qa/api/postman-collection.json
-```
-
-## Telas da aplicacao
-
-* `/login` para autenticacao
-* `/cadastro` para criacao de conta
-* `/dashboard` para area protegida apos login
-
-## Automacao com Cypress
-
-Foi implementado um teste automatizado cobrindo o fluxo de login:
-
-* Acesso a aplicacao
-* Preenchimento de credenciais
-* Interacao com elementos
-* Validacao do comportamento esperado
-
-Arquivo:
-
-```text
-qa/automation/cypress/login.cy.js
-```
+* Vitest foi escolhido para unit e API porque reduz configuração, roda rápido e já encaixa bem com o ecossistema do projeto.
+* Newman entra para automatizar a collection do Postman sem depender da interface gráfica.
+* Cypress fica dedicado ao fluxo fim a fim, onde o valor está em validar a experiência real do usuário.
+* Supertest é usado nos testes de API porque facilita chamar a aplicação diretamente e validar respostas com precisão.
 
 ## Como executar
 
@@ -186,28 +83,29 @@ npm install
 npm start
 ```
 
-Depois abra `http://localhost:3000` no navegador.
+Depois acesse `http://localhost:3000`.
 
-## Integracao com metodologia agil
+Para os testes:
 
-O projeto foi estruturado simulando um ambiente com praticas ageis:
+```bash
+npm run cy:run
+npm run test:unit
+npm run test:api
+npm test
+npm run test:postman
+npm run test:postman:html
+npm run test:perf
+npm run test:security
+```
 
-* Organizacao de tarefas em fluxo Kanban
-* Execucao continua de testes durante o desenvolvimento
-* Foco em entregas incrementais com Scrum
+## Documentação de QA
 
-## Habilidades desenvolvidas
+Os registros manuais e artefatos de QA ficam na pasta `qa/` e incluem casos de teste, bugs, checklist não funcional, teste exploratório, testes de API, performance e segurança.
 
-* Pensamento analitico e critico
-* Atencao a detalhes
-* Comunicacao na documentacao de bugs
-* Criacao estruturada de testes
-* Entendimento do ciclo de qualidade de software
+## CI
 
-## Conclusao
+O repositório também possui automação de pipeline em `.github/workflows/qa-ci.yml` e template de PR em `.github/pull_request_template.md`.
 
-Este projeto demonstra, na pratica, a aplicacao dos principais conceitos e ferramentas exigidos para uma posicao de QA Junior, evidenciando capacidade de aprendizado, organizacao e foco em qualidade de software.
+## Observação
 
-## Observacao
-
-Projeto desenvolvido com fins educacionais e para pratica de Quality Assurance, com base na descricao da vaga em `vagaDescricao/vaga.txt`.
+Este repositório foi montado como portfólio técnico para demonstrar práticas de QA aplicadas a um sistema simples, sem depender de textos de apresentação ou de entrevista no README.
