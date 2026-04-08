@@ -1,0 +1,59 @@
+name: QA CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  qa-validation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Unit tests
+        run: npm run test:unit
+
+      - name: API automated tests
+        run: npm run test:api
+
+      - name: Cypress E2E
+        uses: cypress-io/github-action@v6
+        with:
+          start: npm start
+          wait-on: http://localhost:3000/health
+          wait-on-timeout: 120
+          command: npm run cy:run
+
+      - name: Start app for Newman
+        run: |
+          npm start > /tmp/app.log 2>&1 &
+          for i in {1..30}; do
+            if curl -s http://localhost:3000/health > /dev/null; then
+              break
+            fi
+            sleep 2
+          done
+
+      - name: Postman/Newman collection
+        run: npm run test:postman
+
+      - name: Upload QA reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-reports
+          path: qa/reports/
+          if-no-files-found: ignore

@@ -2,6 +2,7 @@ const path = require('node:path');
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { normalizeEmail, isValidEmail, isStrongPassword } = require('./utils/authValidation');
 
 const app = express();
 const port = Number(process.env.PORT) || 3000;
@@ -132,7 +133,15 @@ app.post('/api/register', (request, response) => {
     return response.status(400).json({ message: 'name, email and password are required' });
   }
 
-  const normalizedEmail = String(email).toLowerCase().trim();
+  if (!isValidEmail(email)) {
+    return response.status(400).json({ message: 'invalid email format' });
+  }
+
+  if (!isStrongPassword(password)) {
+    return response.status(400).json({ message: 'password must have at least 8 characters' });
+  }
+
+  const normalizedEmail = normalizeEmail(email);
   const existingUser = users.find((user) => user.email === normalizedEmail);
 
   if (existingUser) {
@@ -165,7 +174,11 @@ app.post('/api/login', (request, response) => {
     return response.status(400).json({ message: 'email and password are required' });
   }
 
-  const normalizedEmail = String(email).toLowerCase().trim();
+  if (!isValidEmail(email)) {
+    return response.status(400).json({ message: 'invalid email format' });
+  }
+
+  const normalizedEmail = normalizeEmail(email);
   const user = users.find((item) => item.email === normalizedEmail);
 
   if (!user) {
@@ -207,6 +220,17 @@ app.use((request, response) => {
   response.status(404).json({ message: 'route not found' });
 });
 
-app.listen(port, () => {
-  console.log(`eCondo QA Lab running on http://localhost:${port}`);
-});
+function createApp() {
+  return app;
+}
+
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(`eCondo QA Lab running on http://localhost:${port}`);
+  });
+}
+
+module.exports = {
+  app,
+  createApp,
+};

@@ -1,24 +1,58 @@
 {
 	"info": {
 		"name": "eCondo QA Lab",
-		"description": "Collection para validar autenticação, cadastro e dashboard da aplicação QA Lab.",
+		"description": "Collection para validar autenticacao, cadastro e dashboard da aplicacao QA Lab.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "Health",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test('Health status 200', function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"pm.test('Health body has ok', function () {",
+							"  const body = pm.response.json();",
+							"  pm.expect(body.status).to.eql('ok');",
+							"});"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
 					"raw": "{{baseUrl}}/health",
-					"host": ["{{baseUrl}}"],
-					"path": ["health"]
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"health"
+					]
 				}
 			}
 		},
 		{
 			"name": "Register",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test('Register status 201 or 409', function () {",
+							"  pm.expect(pm.response.code).to.be.oneOf([201, 409]);",
+							"});"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -33,13 +67,34 @@
 				},
 				"url": {
 					"raw": "{{baseUrl}}/api/register",
-					"host": ["{{baseUrl}}"],
-					"path": ["api", "register"]
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"register"
+					]
 				}
 			}
 		},
 		{
 			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test('Login status 200', function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"pm.test('Session cookie returned', function () {",
+							"  pm.expect(pm.response.headers.has('Set-Cookie')).to.eql(true);",
+							"});"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -54,37 +109,107 @@
 				},
 				"url": {
 					"raw": "{{baseUrl}}/api/login",
-					"host": ["{{baseUrl}}"],
-					"path": ["api", "login"]
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"login"
+					]
 				}
 			}
 		},
 		{
 			"name": "Me",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test('Me status 200', function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"pm.test('Me response has user object', function () {",
+							"  const body = pm.response.json();",
+							"  pm.expect(body).to.have.property('user');",
+							"});"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer {{token}}"
-					}
-				],
+				"header": [],
 				"url": {
 					"raw": "{{baseUrl}}/api/me",
-					"host": ["{{baseUrl}}"],
-					"path": ["api", "me"]
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"me"
+					]
 				}
 			}
 		},
 		{
 			"name": "Logout",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test('Logout status 200', function () {",
+							"  pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"url": {
 					"raw": "{{baseUrl}}/api/logout",
-					"host": ["{{baseUrl}}"],
-					"path": ["api", "logout"]
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"logout"
+					]
+				}
+			}
+		},
+		{
+			"name": "Me after logout",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test('Me after logout status 401', function () {",
+							"  pm.response.to.have.status(401);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/me",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"me"
+					]
 				}
 			}
 		}
@@ -93,10 +218,6 @@
 		{
 			"key": "baseUrl",
 			"value": "http://localhost:3000"
-		},
-		{
-			"key": "token",
-			"value": ""
 		}
 	]
 }

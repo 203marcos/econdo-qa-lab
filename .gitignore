@@ -31,3 +31,8 @@ cypress/downloads/
 
 # Optional cache
 .npm/
+
+# QA reports
+qa/reports/*.xml
+qa/reports/*.html
+qa/reports/*.json
